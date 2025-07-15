@@ -20,10 +20,9 @@ body {
 h1 {
   color: #2c3e50;
   text-align: center;
-  margin-bottom: 5px; /* 간격 수정 */
+  margin-bottom: 5px;
 }
 
-/* 오늘 날짜 스타일 추가 */
 #todayDate {
   color: #3498db;
   text-align: center;

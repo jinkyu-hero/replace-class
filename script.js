@@ -1,4 +1,4 @@
-// ⚠️ 중요: 1단계에서 복사한 구글 시트 '웹에 게시' URL을 아래에 붙여넣으세요.
+// ⚠️ 중요: 구글 시트 '웹에 게시' URL을 아래에 붙여넣으세요.
 const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEazyRaycK6OachA3y-WRv3VAED6C47hEJqAWzgvL_Oyk3xkSftjoQQBSu108iYQwpwkHMcYM8940m/pub?gid=0&single=true&output=csv';
 
 // HTML 요소 가져오기
@@ -13,7 +13,7 @@ const tableHeaders = ['날짜', '교시', '학반', '과목', '입실교사', '�
 
 let sheetData = []; // 구글 시트 데이터를 저장할 배열
 
-// 오늘 날짜를 YYYY-MM-DD 형식으로 포맷하는 함수
+// 날짜를 YYYY-MM-DD 형식으로 포맷하는 함수
 function getFormattedDate(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -82,16 +82,21 @@ function performSearch() {
   
   const today = new Date();
   today.setHours(0, 0, 0, 0); 
-  const todayString = getFormattedDate(today); // 'YYYY-MM-DD' 형식의 오늘 날짜
+  const todayString = getFormattedDate(today);
 
   let finalFilteredData;
 
-  if (!searchTerm) {
-    // ✅ 변경된 부분: 검색어가 없으면 오늘 날짜 데이터만 필터링
+  // ✅ 변경된 부분: 검색 로직 수정
+  if (searchTerm === '*') {
+    // 1. 검색어가 '*'이면 전체 데이터 표시
+    finalFilteredData = sheetData;
+    statusMessage.textContent = `전체 데이터 ${finalFilteredData.length}건을 표시합니다.`;
+  } else if (!searchTerm) {
+    // 2. 검색어가 없으면 오늘 날짜 데이터만 표시
     finalFilteredData = sheetData.filter(row => row['날짜'] === todayString);
     statusMessage.textContent = `오늘(${todayString}) 전체 현황입니다.`;
   } else {
-    // 검색어가 있으면 오늘 및 미래 날짜 중에서 이름으로 검색
+    // 3. 검색어가 있으면 오늘 및 미래 날짜 중에서 이름으로 검색
     const dateFilteredData = sheetData.filter(row => {
         if (!row['날짜']) return false;
         const rowDate = new Date(row['날짜']);
