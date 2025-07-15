@@ -8,11 +8,19 @@
 </head>
 <body>
 <!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교사별 입실 현황 검색</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
 <div class="container">
   <h1>교사별 입실 현황 검색</h1>
-  <p>구글 시트에 기록된 데이터를 검색합니다.</p>
-  
-  <div class="search-box">
+  <h2 id="todayDate"></h2> <div class="search-box">
     <input type="text" id="searchInput" placeholder="교사 이름을 입력하세요...">
     <button id="searchButton">검색</button>
   </div>
@@ -29,7 +37,6 @@
           <th>과목</th>
           <th>입실교사</th>
           <th>비고</th>
-          <th>교사</th>
         </tr>
       </thead>
       <tbody id="resultsBody">
@@ -37,6 +44,10 @@
     </table>
   </div>
 </div>
+
+<script src="script.js"></script>
+</body>
+</html>
 <!-- partial -->
   <script  src="./script.js"></script>
 
